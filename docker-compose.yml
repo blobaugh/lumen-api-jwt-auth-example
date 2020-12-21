@@ -1,0 +1,30 @@
+version: '3.4'
+
+services:
+  mysql:
+    image: mariadb
+    ports:
+      - 3306:3306
+    container_name: lumen.db
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: bobsyouruncle
+      MYSQL_DATABASE: lumen
+
+  lumen.com:
+   container_name: lumen.com
+   image: blobaugh/php:7.4-apache
+   volumes:
+           - ./src:/var/www/html
+   environment:
+      VIRTUAL_HOST: lumen.test
+   depends_on:
+      - mysql
+
+networks:
+  default:
+    external:
+      name: m7
+  m7:
+    external: true

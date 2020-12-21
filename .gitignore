@@ -1,0 +1,4 @@
+.DS_Store
+/mysql
+/src/.env
+/srv/vendor
